@@ -1,60 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="progress_max" format="integer"/>
-    <attr name="progress_unreached_color" format="color"/>
-    <attr name="progress_reached_color" format="color"/>
-    <attr name="progress_animTime" format="integer"/>
-    <attr name="progress_stroke_width" format="dimension"/>
+    <attr name="progressMax" format="integer"/>
+    <attr name="progressUnreachedColor" format="color"/>
+    <attr name="progressReachedColor" format="color"/>
+    <attr name="progressAnimTime" format="integer"/>
+    <attr name="progressStrokeWidth" format="dimension"/>
 
     <declare-styleable name="HorizontalProgress">
-        <attr name="progress_current" format="integer"/>
-        <attr name="progress_max" />
-        <attr name="progress_animTime"/>
+        <attr name="progressCurrent" format="integer"/>
+        <attr name="progressMax" />
+        <attr name="progressAnimTime"/>
 
-        <attr name="progress_unreached_color" />
-        <attr name="progress_reached_color" />
+        <attr name="progressUnreachedColor" />
+        <attr name="progressReachedColor" />
 
-        <attr name="progress_bar_height" format="dimension"/>
+        <attr name="progressBarHeight" format="dimension"/>
 
-        <attr name="progress_text_size" format="dimension"/>
-        <attr name="progress_text_color" format="color"/>
-        <attr name="progress_stroke_width" />
+        <attr name="progressTextSize" format="dimension"/>
+        <attr name="progressTextColor" format="color"/>
+        <attr name="progressStrokeWidth" />
 
-        <attr name="progress_text_offset" format="dimension"/>
-
-        <attr name="progress_text_visibility" format="enum">
-            <enum name="visible" value="0"/>
-            <enum name="invisible" value="1"/>
-        </attr>
+        <attr name="progressTextOffset" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="CircleProgress">
-        <attr name="progress_mode" format="enum">
+        <attr name="progressMode" format="enum">
             <enum name="semiCircle" value="0"/>
             <enum name="fullCircle" value="1"/>
         </attr>
 
-        <attr name="progress_max" />
-        <attr name="progress_animTime"/>
-        <attr name="progress_stroke_width" />
-        <attr name="progress_reached_color" />
-        <attr name="progress_unreached_color" />
-        <attr name="progress_value_text_color" format="color"/>
-        <attr name="progress_value_text_size" format="dimension"/>
-        <attr name="progress_hint_color" format="color"/>
-        <attr name="progress_hint_text_size" format="dimension"/>
-        <attr name="progress_unit" format="string|reference"/>
-        <attr name="progress_hint" format="string|reference"/>
-        <attr name="text_Offset_Percent_In_Radius" format="float"/>
-        <attr name="arcColors" format="color|reference"/>
+        <attr name="progressMax" />
+        <attr name="progressAnimTime"/>
+        <attr name="progressStrokeWidth" />
+        <attr name="progressReachedColor" />
+        <attr name="progressUnreachedColor" />
+        <attr name="progressValueTextColor" format="color"/>
+        <attr name="progressValueTextSize" format="dimension"/>
+        <attr name="progressHintColor" format="color"/>
+        <attr name="progressHintTextSize" format="dimension"/>
+        <attr name="progressUnit" format="string|reference"/>
+        <attr name="progressHint" format="string|reference"/>
+        <attr name="textOffsetPercentInRadius" format="float"/>
+        <attr name="progressArcColors" format="color|reference"/>
 
     </declare-styleable>
 
     <declare-styleable name="NodeProgressView">
-        <attr name="progress_max" />
-        <attr name="progress_stroke_width" />
-        <attr name="progress_stage" format="integer"/>
-        <attr name="progress_radius" format="float"/>
+        <attr name="progressMax" />
+        <attr name="progressStrokeWidth" />
+        <attr name="progressStage" format="integer"/>
+        <attr name="progressRadius" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="Themes">

@@ -45,6 +45,7 @@ public class CircleFragment extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                circleProgressView.setAnimTime(3000);
                 circleProgressView.setProgress(90);
                 circleProgressView2.setProgress(80);
                 circleProgressView3.setProgress(100);

@@ -27,7 +27,6 @@
 
         <com.joson.progress.view.horizontal.HorizontalProgressView
             android:id="@+id/horizontalProgress2"
-            style="@style/NumberProgressBar_Passing_Green"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -38,14 +37,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalProgress"
-            app:progress_bar_height="15dp"
-            app:progress_current="0">
+            app:progressBarHeight="15dp"
+            app:progressCurrent="0"
+            app:progressMax="100"
+            app:progressUnreachedColor="#CCCCCC"
+            app:progressReachedColor="#70A800"
+            app:progressTextSize="10sp"
+            app:progressTextColor="#70A800">
 
         </com.joson.progress.view.horizontal.HorizontalProgressView>
 
         <com.joson.progress.view.horizontal.HorizontalProgressView
             android:id="@+id/horizontalProgress3"
-            style="@style/NumberProgressBar_Beauty_Red"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -56,14 +59,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalProgress2"
-            app:progress_bar_height="20dp"
-            app:progress_current="0">
+            app:progressBarHeight="20dp"
+            app:progressCurrent="0"
+            app:progressMax="100"
+            app:progressUnreachedColor="#CCCCCC"
+            app:progressReachedColor="#FF3D7F"
+            app:progressTextSize="10sp"
+            app:progressTextColor="#FF3D7F">
 
         </com.joson.progress.view.horizontal.HorizontalProgressView>
 
         <com.joson.progress.view.horizontal.HorizontalProgressView
             android:id="@+id/horizontalProgress4"
-            style="@style/NumberProgressBar_Warning_Red"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginStart="16dp"
@@ -74,8 +81,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalProgress3"
-            app:progress_bar_height="30dp"
-            app:progress_current="0">
+            app:progressBarHeight="30dp"
+            app:progressCurrent="0"
+            app:progressMax="100"
+            app:progressUnreachedColor="#CCCCCC"
+            app:progressReachedColor="#E74C3C"
+            app:progressTextSize="10sp"
+            app:progressTextColor="#E74C3C">
 
         </com.joson.progress.view.horizontal.HorizontalProgressView>
 

@@ -23,7 +23,7 @@ import com.joson.progress.utils.MiscUtil;
  * @Description: 水平增加进度条
  */
 public class HorizontalProgressView extends View {
-    private int mMaxProgress = 100;
+    private int mMaxProgress;
     private int mCurrentProgress;
     private int mReachedBarColor;
     private int mUnReachedBarColor;
@@ -37,7 +37,7 @@ public class HorizontalProgressView extends View {
     private boolean mDrawReachedBar = true;
     private String mSuffix = "%";
     private float mMaxDrawTextWidth;
-    private final long mAnimTime;
+    private long mAnimTime;
     private Context mContext;
 
     private Paint mTextPaint;
@@ -46,6 +46,10 @@ public class HorizontalProgressView extends View {
     private Paint mUnReachedBarPaint;
     private RectF mReachedRectF;
     private RectF mUnReachedRectF;
+
+    private String mCurrentDrawText;
+    private final float default_reached_bar_height;
+    private float mDrawTextHeight;
 
     public static final int default_animTime = 3000;
     public static final int default_max = 100;
@@ -65,12 +69,6 @@ public class HorizontalProgressView extends View {
     private static final String INSTANCE_MAX = "max";
     private static final String INSTANCE_PROGRESS = "progress";
     private static final String INSTANCE_SUFFIX = "suffix";
-    private static final String INSTANCE_TEXT_VISIBILITY = "text_visibility";
-
-    private static final int PROGRESS_TEXT_VISIBLE = 0;
-    private String mCurrentDrawText;
-    private final float default_reached_bar_height;
-    private float mDrawTextHeight;
 
     public HorizontalProgressView(Context context) {
         this(context, null);
@@ -89,22 +87,18 @@ public class HorizontalProgressView extends View {
         final TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.HorizontalProgress,
                 defStyleAttr, 0);
 
-        mReachedBarColor = typedArray.getColor(R.styleable.HorizontalProgress_progress_reached_color, default_reached_color);
-        mUnReachedBarColor = typedArray.getColor(R.styleable.HorizontalProgress_progress_unreached_color, default_unreached_color);
-        mTextColor = typedArray.getColor(R.styleable.HorizontalProgress_progress_text_color, default_text_color);
-        mTextSize = typedArray.getDimension(R.styleable.HorizontalProgress_progress_text_size, default_text_size);
-        mReachedBarHeight = typedArray.getDimension(R.styleable.HorizontalProgress_progress_bar_height, default_reached_bar_height);
-        mOffset = typedArray.getDimension(R.styleable.HorizontalProgress_progress_text_offset, default_progress_text_offset);
-        mAnimTime = typedArray.getInteger(R.styleable.HorizontalProgress_progress_animTime, default_animTime);
-
-        int textVisible = typedArray.getInt(R.styleable.HorizontalProgress_progress_text_visibility, PROGRESS_TEXT_VISIBLE);
-        if (textVisible != PROGRESS_TEXT_VISIBLE) {
-            mIfDrawText = false;
-        }
+        mReachedBarColor = typedArray.getColor(R.styleable.HorizontalProgress_progressReachedColor, default_reached_color);
+        mUnReachedBarColor = typedArray.getColor(R.styleable.HorizontalProgress_progressUnreachedColor, default_unreached_color);
+        mTextColor = typedArray.getColor(R.styleable.HorizontalProgress_progressTextColor, default_text_color);
+        mTextSize = typedArray.getDimension(R.styleable.HorizontalProgress_progressTextSize, default_text_size);
+        mReachedBarHeight = typedArray.getDimension(R.styleable.HorizontalProgress_progressBarHeight, default_reached_bar_height);
+        mOffset = typedArray.getDimension(R.styleable.HorizontalProgress_progressTextOffset, default_progress_text_offset);
+        mAnimTime = typedArray.getInt(R.styleable.HorizontalProgress_progressAnimTime, default_animTime);
+        mMaxProgress = typedArray.getInt(R.styleable.HorizontalProgress_progressMax, default_max);
 
         //setPadding(0,(int) MiscUtil.dp2px(context,5f),0,(int) MiscUtil.dp2px(context, 5f));
-        setProgress(typedArray.getInt(R.styleable.HorizontalProgress_progress_current, default_progress));
-        setMax(typedArray.getInt(R.styleable.HorizontalProgress_progress_max, default_max));
+        setProgress(typedArray.getInt(R.styleable.HorizontalProgress_progressCurrent, default_progress));
+        setMax(typedArray.getInt(R.styleable.HorizontalProgress_progressMax, default_max));
         typedArray.recycle();
         initializePainters();
     }
@@ -226,7 +220,6 @@ public class HorizontalProgressView extends View {
         bundle.putInt(INSTANCE_MAX, getMax());
         bundle.putInt(INSTANCE_PROGRESS, getProgress());
         bundle.putString(INSTANCE_SUFFIX, getSuffix());
-        bundle.putBoolean(INSTANCE_TEXT_VISIBILITY, getProgressTextVisibility());
         return bundle;
     }
 
@@ -243,8 +236,6 @@ public class HorizontalProgressView extends View {
             setMax(bundle.getInt(INSTANCE_MAX));
             setProgress(bundle.getInt(INSTANCE_PROGRESS));
             setSuffix(bundle.getString(INSTANCE_SUFFIX));
-            setProgressTextVisibility(bundle.getBoolean(INSTANCE_TEXT_VISIBILITY) ?
-                    ProgressTextVisibility.Visible : ProgressTextVisibility.Invisible);
             super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
             return;
         }
@@ -301,6 +292,18 @@ public class HorizontalProgressView extends View {
         }
     }
 
+    public void setAnimTime(long mAnimTime) {
+        if (mAnimTime > 0) {
+            this.mAnimTime = mAnimTime;
+        }
+    }
+
+    public void setMaxProgress(int mMaxProgress) {
+        if (mMaxProgress > 0) {
+            this.mMaxProgress = mMaxProgress;
+        }
+    }
+
     public float getReachedBarHeight() {
         return mReachedBarHeight;
     }
@@ -323,15 +326,6 @@ public class HorizontalProgressView extends View {
 
     public int getProgress() {
         return mCurrentProgress;
-    }
-
-    public void setProgressTextVisibility(ProgressTextVisibility visibility) {
-        mIfDrawText = visibility == ProgressTextVisibility.Visible;
-        invalidate();
-    }
-
-    public boolean getProgressTextVisibility() {
-        return mIfDrawText;
     }
 
 }

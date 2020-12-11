@@ -42,6 +42,7 @@ public class HorizontalFragment extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                horizontalProgressView.setAnimTime(5000);
                 horizontalProgressView.setProgress(100);
                 horizontalProgressView2.setProgress(80);
                 horizontalProgressView3.setProgress(60);

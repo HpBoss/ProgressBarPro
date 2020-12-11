@@ -14,17 +14,17 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginTop="24dp"
-            app:progress_reached_color = "@color/green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent"
-            app:progress_hint_text_size="13sp"
-            app:progress_max="100"
-            app:progress_mode="fullCircle"
-            app:progress_stroke_width="5dp"
-            app:progress_unit="%"
-            app:progress_value_text_size="20sp"
-            app:text_Offset_Percent_In_Radius="0.55">
+            app:progressReachedColor = "@color/green"
+            app:progressHintTextSize="13sp"
+            app:progressMax="100"
+            app:progressMode="fullCircle"
+            app:progressStrokeWidth="5dp"
+            app:progressUnit="%"
+            app:progressValueTextSize="20sp"
+            app:textOffsetPercentInRadius="0.55">
 
         </com.joson.progress.view.circle.CircleProgressView>
 
@@ -36,13 +36,13 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:progress_hint_text_size="13sp"
-            app:progress_max="100"
-            app:progress_mode="fullCircle"
-            app:progress_stroke_width="5dp"
-            app:progress_unit="%"
-            app:progress_value_text_size="20sp"
-            app:text_Offset_Percent_In_Radius="0.55">
+            app:progressHintTextSize="13sp"
+            app:progressMax="100"
+            app:progressMode="fullCircle"
+            app:progressStrokeWidth="5dp"
+            app:progressUnit="%"
+            app:progressValueTextSize="20sp"
+            app:textOffsetPercentInRadius="0.55">
 
         </com.joson.progress.view.circle.CircleProgressView>
 
@@ -54,14 +54,14 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circleProgress"
-            app:progress_hint="达标率"
-            app:progress_hint_text_size="13sp"
-            app:progress_max="100"
-            app:progress_mode="fullCircle"
-            app:progress_stroke_width="5dp"
-            app:progress_unit="%"
-            app:progress_value_text_size="30sp"
-            app:text_Offset_Percent_In_Radius="0.55">
+            app:progressHint="达标率"
+            app:progressHintTextSize="13sp"
+            app:progressMax="100"
+            app:progressMode="fullCircle"
+            app:progressStrokeWidth="5dp"
+            app:progressUnit="%"
+            app:progressValueTextSize="30sp"
+            app:textOffsetPercentInRadius="0.55">
 
         </com.joson.progress.view.circle.CircleProgressView>
 
@@ -70,19 +70,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            app:arcColors="@array/gradient_arc_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/circleProgress4"
-            app:progress_hint="达标率"
-            app:progress_hint_text_size="13sp"
-            app:progress_max="100"
-            app:progress_mode="semiCircle"
-            app:progress_stroke_width="5dp"
-            app:progress_unit="%"
-            app:progress_animTime = "2000"
-            app:progress_value_text_size="30sp"
-            app:text_Offset_Percent_In_Radius="0.55">
+            app:progressArcColors="@array/gradient_arc_color"
+            app:progressHint="达标率"
+            app:progressHintTextSize="13sp"
+            app:progressMax="100"
+            app:progressMode="semiCircle"
+            app:progressStrokeWidth="5dp"
+            app:progressUnit="%"
+            app:progressAnimTime = "2000"
+            app:progressValueTextSize="30sp"
+            app:textOffsetPercentInRadius="0.55">
 
         </com.joson.progress.view.circle.CircleProgressView>
 
@@ -95,12 +95,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circleProgress2"
-            app:progress_max="100"
-            app:progress_hint = "目前电量"
-            app:progress_stroke_width="10dp"
-            app:progress_unit="%"
-            app:progress_value_text_size="15sp"
-            app:progress_animTime = "3000">
+            app:progressMax="100"
+            app:progressHint = "目前电量"
+            app:progressStrokeWidth="10dp"
+            app:progressUnit="%"
+            app:progressValueTextSize="15sp"
+            app:progressAnimTime = "3000">
 
         </com.joson.progress.view.circle.ChargeProgressView>
 

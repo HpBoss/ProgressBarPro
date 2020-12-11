@@ -102,7 +102,7 @@ public class NodeProgressView extends View {
     /**
      * 默认最小stage，如果输入stage小于3，则stage设为3
      */
-    private static final int default_stage = 5;
+    private static final int default_stage = 3;
     private final Context mContext;
 
     public static final String INSTANCE_STATE = "saved_instance";
@@ -132,10 +132,10 @@ public class NodeProgressView extends View {
         float default_stroke_width = MiscUtil.dp2px(context, 1f);
         float default_radius = MiscUtil.dp2px(context, 10f);
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.NodeProgressView, defStyleAttr, 0);
-        mStage = typedArray.getInt(R.styleable.NodeProgressView_progress_stage, default_stage);
+        mStage = typedArray.getInt(R.styleable.NodeProgressView_progressStage, default_stage);
         if (mStage < 1) mStage = default_stage;
-        mStrokeWidth = typedArray.getFloat(R.styleable.NodeProgressView_progress_stroke_width, default_stroke_width);
-        mRadius = typedArray.getFloat(R.styleable.NodeProgressView_progress_radius, default_radius);
+        mStrokeWidth = typedArray.getFloat(R.styleable.NodeProgressView_progressStrokeWidth, default_stroke_width);
+        mRadius = typedArray.getFloat(R.styleable.NodeProgressView_progressRadius, default_radius);
         typedArray.recycle();
         initializePainters();
     }

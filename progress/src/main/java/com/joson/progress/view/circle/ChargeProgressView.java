@@ -48,9 +48,10 @@ public class ChargeProgressView extends View {
 
     private final Context mContext;
     private long mAnimTime;
+    private float mRadius;
 
-    private static final int default_value_text_color = Color.rgb(66, 145, 241);
-    private static final int default_reached_color = Color.rgb(251, 238, 220);
+    private static final int default_color = Color.rgb(251, 238, 220);
+    private static final int default_reached_color = Color.rgb(106, 227, 130);
     private static final int default_unreached_color = Color.rgb(180, 148, 154);
 
     public static final String INSTANCE_STATE = "saved_instance";
@@ -62,7 +63,6 @@ public class ChargeProgressView extends View {
     public static final String INSTANCE_MAX_PROGRESS = "max_progress";
     public static final String INSTANCE_UNIT = "unit";
     public static final String INSTANCE_ANIM_TIME = "anim_time";
-    private float mRadius;
 
 
     public ChargeProgressView(Context context) {
@@ -81,15 +81,15 @@ public class ChargeProgressView extends View {
         final TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.CircleProgress, defStyleAttr, 0);
         // 从xml中获取属性所对应的值，传递到view内部。
-        mReachedRectColor = typedArray.getColor(R.styleable.CircleProgress_progress_reached_color, default_reached_color);
-        mUnReachedRectColor = typedArray.getColor(R.styleable.CircleProgress_progress_unreached_color, default_unreached_color);
-        mValueColor = typedArray.getColor(R.styleable.CircleProgress_progress_value_text_color, default_value_text_color);
-        mValueSize = typedArray.getDimension(R.styleable.CircleProgress_progress_value_text_size, default_value_text_size);
-        mStrokeWidth = typedArray.getDimension(R.styleable.CircleProgress_progress_stroke_width, default_stroke_width);
-        mMaxProgress = typedArray.getInt(R.styleable.CircleProgress_progress_max, 100);
-        mUnit = typedArray.getString(R.styleable.CircleProgress_progress_unit);
-        mHint = typedArray.getString(R.styleable.CircleProgress_progress_hint);
-        mAnimTime = typedArray.getInteger(R.styleable.CircleProgress_progress_animTime, 1000);
+        mReachedRectColor = typedArray.getColor(R.styleable.CircleProgress_progressReachedColor, default_reached_color);
+        mUnReachedRectColor = typedArray.getColor(R.styleable.CircleProgress_progressUnreachedColor, default_unreached_color);
+        mValueColor = typedArray.getColor(R.styleable.CircleProgress_progressValueTextColor, default_color);
+        mValueSize = typedArray.getDimension(R.styleable.CircleProgress_progressValueTextSize, default_value_text_size);
+        mStrokeWidth = typedArray.getDimension(R.styleable.CircleProgress_progressStrokeWidth, default_stroke_width);
+        mMaxProgress = typedArray.getInt(R.styleable.CircleProgress_progressMax, 100);
+        mUnit = typedArray.getString(R.styleable.CircleProgress_progressUnit);
+        mHint = typedArray.getString(R.styleable.CircleProgress_progressHint);
+        mAnimTime = typedArray.getInteger(R.styleable.CircleProgress_progressAnimTime, 1000);
 
         typedArray.recycle();
         initializePainters();
@@ -97,7 +97,7 @@ public class ChargeProgressView extends View {
 
     private void initializePainters() {
         mReachedRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mReachedRectPaint.setColor(mReachedRectColor);
+        mReachedRectPaint.setColor(default_color);
         mReachedRectPaint.setStyle(Paint.Style.STROKE);
         mReachedRectPaint.setStrokeWidth(mStrokeWidth);
         mReachedRectPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -110,7 +110,7 @@ public class ChargeProgressView extends View {
 
         mValuePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mValuePaint.setTextAlign(Paint.Align.CENTER);
-        mValuePaint.setColor(getResources().getColor(R.color.reachColor));
+        mValuePaint.setColor(default_color);
         mValuePaint.setTextSize(mValueSize);
 
         mCenterPoint = new Point();
@@ -118,7 +118,7 @@ public class ChargeProgressView extends View {
 
         // 初始化画闪电的画笔
         mFlashPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mFlashPaint.setColor(getResources().getColor(R.color.reachColor));
+        mFlashPaint.setColor(default_color);
         mFlashPath = new Path();
     }
 
@@ -238,11 +238,11 @@ public class ChargeProgressView extends View {
                 mPercent = (float) animation.getAnimatedValue();
                 mCurrentProgress = (int) (mPercent * mMaxProgress);
                 if (mCurrentProgress >= 20) {
-                    mReachedRectPaint.setColor(getResources().getColor(R.color.lightGreen));
-                    mFlashPaint.setColor(getResources().getColor(R.color.lightGreen));
+                    mReachedRectPaint.setColor(mReachedRectColor);
+                    mFlashPaint.setColor(mReachedRectColor);
                 } else {
-                    mReachedRectPaint.setColor(default_reached_color);
-                    mFlashPaint.setColor(getResources().getColor(R.color.reachColor));
+                    mReachedRectPaint.setColor(default_color);
+                    mFlashPaint.setColor(default_color);
                 }
                 invalidate();
             }
@@ -257,6 +257,12 @@ public class ChargeProgressView extends View {
         float start = mPercent;
         float end = progress / mMaxProgress;
         startAnimator(start, end, mAnimTime);
+    }
+
+    public void setAnimTime(long mAnimTime) {
+        if (mAnimTime > 0) {
+            this.mAnimTime = mAnimTime;
+        }
     }
 
     public int getProgress() {

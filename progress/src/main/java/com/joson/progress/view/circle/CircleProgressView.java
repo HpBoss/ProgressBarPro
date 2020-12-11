@@ -73,7 +73,7 @@ public class CircleProgressView extends View {
      */
     private long mAnimTime;
 
-    private static final int default_value_text_color = Color.rgb(66, 145, 241);
+    private static final int default_value_text_color = Color.rgb(255, 255, 255);
     private static final int default_hint_color = Color.rgb(66, 145, 241);
     private static final int default_reached_color = Color.rgb(66, 145, 241);
     private static final int default_unreached_color = Color.rgb(204, 204, 204);
@@ -112,21 +112,21 @@ public class CircleProgressView extends View {
         final TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.CircleProgress, defStyleAttr, 0);
         // 从xml中获取属性所对应的值，传递到view内部。
-        mCircleMode = typedArray.getInt(R.styleable.CircleProgress_progress_mode, SEMI_CIRCLE);
-        mReachedRectColor = typedArray.getColor(R.styleable.CircleProgress_progress_reached_color, default_reached_color);
-        mUnReachedRectColor = typedArray.getColor(R.styleable.CircleProgress_progress_unreached_color, default_unreached_color);
-        mValueColor = typedArray.getColor(R.styleable.CircleProgress_progress_value_text_color, default_value_text_color);
-        mHintColor = typedArray.getColor(R.styleable.CircleProgress_progress_hint_color, default_hint_color);
-        mValueSize = typedArray.getDimension(R.styleable.CircleProgress_progress_value_text_size, default_value_text_size);
-        mHintSize = typedArray.getDimension(R.styleable.CircleProgress_progress_hint_text_size, default_hint_text_size);
-        mStrokeWidth = typedArray.getDimension(R.styleable.CircleProgress_progress_stroke_width, default_stroke_width);
-        mTextOffsetPercentInRadius = typedArray.getFloat(R.styleable.CircleProgress_text_Offset_Percent_In_Radius, 0.44f);
-        mMaxProgress = typedArray.getInt(R.styleable.CircleProgress_progress_max, 100);
-        mUnit = typedArray.getString(R.styleable.CircleProgress_progress_unit);
-        mHint = typedArray.getString(R.styleable.CircleProgress_progress_hint);
-        mAnimTime = typedArray.getInteger(R.styleable.CircleProgress_progress_animTime, 1000);
-        //setPadding(0,(int) MiscUtil.dp2px(mContext, 5f),0,(int) MiscUtil.dp2px(mContext, 5f));
-        mGradientArcColors = typedArray.getResourceId(R.styleable.CircleProgress_arcColors, 0);
+        mCircleMode = typedArray.getInt(R.styleable.CircleProgress_progressMode, SEMI_CIRCLE);
+        mReachedRectColor = typedArray.getColor(R.styleable.CircleProgress_progressReachedColor, default_reached_color);
+        mUnReachedRectColor = typedArray.getColor(R.styleable.CircleProgress_progressUnreachedColor, default_unreached_color);
+        mValueColor = typedArray.getColor(R.styleable.CircleProgress_progressValueTextColor, default_value_text_color);
+        mHintColor = typedArray.getColor(R.styleable.CircleProgress_progressHintColor, default_hint_color);
+        mValueSize = typedArray.getDimension(R.styleable.CircleProgress_progressValueTextSize, default_value_text_size);
+        mHintSize = typedArray.getDimension(R.styleable.CircleProgress_progressHintTextSize, default_hint_text_size);
+        mStrokeWidth = typedArray.getDimension(R.styleable.CircleProgress_progressStrokeWidth, default_stroke_width);
+        mTextOffsetPercentInRadius = typedArray.getFloat(R.styleable.CircleProgress_textOffsetPercentInRadius, 0.44f);
+        mMaxProgress = typedArray.getInt(R.styleable.CircleProgress_progressMax, 100);
+        mUnit = typedArray.getString(R.styleable.CircleProgress_progressUnit);
+        mHint = typedArray.getString(R.styleable.CircleProgress_progressHint);
+        mAnimTime = typedArray.getInteger(R.styleable.CircleProgress_progressAnimTime, 1000);
+
+        mGradientArcColors = typedArray.getResourceId(R.styleable.CircleProgress_progressArcColors, 0);
         if (mGradientArcColors != 0) {
             try {
                 int[] gradientColors = getResources().getIntArray(mGradientArcColors);
@@ -277,7 +277,11 @@ public class CircleProgressView extends View {
 
     private void drawText(Canvas canvas) {
         // 绘制百分比值的内容（包括单位，如：%、步、次）
-        canvas.drawText(mCurrentProgress + mUnit, mCenterPoint.x, mValueTextY, mValuePaint);
+        if (mUnit != null) {
+            canvas.drawText(mCurrentProgress + mUnit, mCenterPoint.x, mValueTextY, mValuePaint);
+        } else {
+            canvas.drawText(String.valueOf(mCurrentProgress), mCenterPoint.x, mValueTextY, mValuePaint);
+        }
         // 绘制提示文字
         if (mHint != null) {
             canvas.drawText(mHint, mCenterPoint.x, mHintTextY, mHintPaint);
@@ -337,6 +341,12 @@ public class CircleProgressView extends View {
 
     public int getProgress() {
         return mCurrentProgress;
+    }
+
+    public void setAnimTime(long mAnimTime) {
+        if (mAnimTime > 0) {
+            this.mAnimTime = mAnimTime;
+        }
     }
 
     public int getMax() {
