@@ -6,7 +6,7 @@
 
    * ##### 示图
 
-     <img src="/Users/hepiao/StudioProjects/自身项目/自定义View/ProgressBarPro/images/HorizontalProgressView.gif" style="zoom:80%;" />
+     <img src="./images/HorizontalProgressView.gif" style="zoom:80%;" />
 
    * ##### HorizontalProgressView自定义属性说明
 
@@ -53,7 +53,7 @@
 
    * ##### 示图
 
-     <img src="/Users/hepiao/StudioProjects/自身项目/自定义View/ProgressBarPro/images/CircleProgressView.gif" style="zoom:80%;" />
+     <img src="./images/CircleProgressView.gif" style="zoom:80%;" />
 
    * ##### CircleProgressView自定义属性说明
 
@@ -107,7 +107,7 @@
 
    * ##### 示图
 
-     <img src="/Users/hepiao/StudioProjects/自身项目/自定义View/ProgressBarPro/images/ChargeProgressView.gif" style="zoom:67%;" />
+     <img src="./images/ChargeProgressView.gif" style="zoom:67%;" />
 
    * ##### ChargeProgressView自定义属性说明
 
@@ -158,7 +158,7 @@
 
    * ##### 示图
 
-     <img src="/Users/hepiao/StudioProjects/自身项目/自定义View/ProgressBarPro/images/NodeProgressView.gif" style="zoom:80%;" />
+     <img src="./images/NodeProgressView.gif" style="zoom:80%;" />
 
    * ##### NodeProgressView自定义属性说明
 
