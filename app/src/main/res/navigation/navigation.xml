@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/horizontalFragment">
+
+    <fragment
+        android:id="@+id/circleFragment"
+        android:name="com.joson.progressbarpro.fragment.CircleFragment"
+        android:label="fragment_circle"
+        tools:layout="@layout/fragment_circle" >
+        <action
+            android:id="@+id/action_circleFragment_to_horizontalFragment"
+            app:destination="@id/horizontalFragment" />
+        <action
+            android:id="@+id/action_circleFragment_to_nodeFragment"
+            app:destination="@id/nodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nodeFragment"
+        android:name="com.joson.progressbarpro.fragment.NodeFragment"
+        android:label="fragment_node"
+        tools:layout="@layout/fragment_node" >
+        <action
+            android:id="@+id/action_nodeFragment_to_circleFragment"
+            app:destination="@id/circleFragment" />
+        <action
+            android:id="@+id/action_nodeFragment_to_horizontalFragment"
+            app:destination="@id/horizontalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/horizontalFragment"
+        android:name="com.joson.progressbarpro.fragment.HorizontalFragment"
+        android:label="fragment_horizontal"
+        tools:layout="@layout/fragment_horizontal" >
+        <action
+            android:id="@+id/action_horizontalFragment_to_nodeFragment"
+            app:destination="@id/nodeFragment" />
+        <action
+            android:id="@+id/action_horizontalFragment_to_circleFragment"
+            app:destination="@id/circleFragment" />
+    </fragment>
+</navigation>

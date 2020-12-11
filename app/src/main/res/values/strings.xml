@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ProgressBarPro</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="process_start">开启</string>
+    <string name="process_reset">重置</string>
+    <string name="process_horizontal">水平</string>
+    <string name="process_circle">环形</string>
+    <string name="process_node">节点</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="green">#00FF00</color>
+    <color name="yellow">#EE9A00</color>
+    <color name="red">#EE0000</color>
+    <color name="black">#000000</color>
+    <color name="reachColor">#FBEEDC</color>
+    <color name="unReachColor">#B4949A</color>
+    <color name="lightGreen">#6AE382</color>
+    <color name="darkGray">#A9A9A9</color>
+
+    <integer-array name="gradient_arc_color">
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/red</item>
+    </integer-array>
+</resources>

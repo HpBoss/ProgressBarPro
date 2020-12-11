@@ -1,0 +1,134 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.joson.progressbarpro.fragment.CircleFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.joson.progress.view.circle.CircleProgressView
+            android:id="@+id/circleProgress4"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="24dp"
+            app:progress_reached_color = "@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progress_hint_text_size="13sp"
+            app:progress_max="100"
+            app:progress_mode="fullCircle"
+            app:progress_stroke_width="5dp"
+            app:progress_unit="%"
+            app:progress_value_text_size="20sp"
+            app:text_Offset_Percent_In_Radius="0.55">
+
+        </com.joson.progress.view.circle.CircleProgressView>
+
+        <com.joson.progress.view.circle.CircleProgressView
+            android:id="@+id/circleProgress"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:progress_hint_text_size="13sp"
+            app:progress_max="100"
+            app:progress_mode="fullCircle"
+            app:progress_stroke_width="5dp"
+            app:progress_unit="%"
+            app:progress_value_text_size="20sp"
+            app:text_Offset_Percent_In_Radius="0.55">
+
+        </com.joson.progress.view.circle.CircleProgressView>
+
+        <com.joson.progress.view.circle.CircleProgressView
+            android:id="@+id/circleProgress2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleProgress"
+            app:progress_hint="达标率"
+            app:progress_hint_text_size="13sp"
+            app:progress_max="100"
+            app:progress_mode="fullCircle"
+            app:progress_stroke_width="5dp"
+            app:progress_unit="%"
+            app:progress_value_text_size="30sp"
+            app:text_Offset_Percent_In_Radius="0.55">
+
+        </com.joson.progress.view.circle.CircleProgressView>
+
+        <com.joson.progress.view.circle.CircleProgressView
+            android:id="@+id/circleProgress3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:arcColors="@array/gradient_arc_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/circleProgress4"
+            app:progress_hint="达标率"
+            app:progress_hint_text_size="13sp"
+            app:progress_max="100"
+            app:progress_mode="semiCircle"
+            app:progress_stroke_width="5dp"
+            app:progress_unit="%"
+            app:progress_animTime = "2000"
+            app:progress_value_text_size="30sp"
+            app:text_Offset_Percent_In_Radius="0.55">
+
+        </com.joson.progress.view.circle.CircleProgressView>
+
+        <com.joson.progress.view.circle.ChargeProgressView
+            android:id="@+id/chargeProgressView"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleProgress2"
+            app:progress_max="100"
+            app:progress_hint = "目前电量"
+            app:progress_stroke_width="10dp"
+            app:progress_unit="%"
+            app:progress_value_text_size="15sp"
+            app:progress_animTime = "3000">
+
+        </com.joson.progress.view.circle.ChargeProgressView>
+
+        <Button
+            android:id="@+id/circle_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/process_start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chargeProgressView" />
+
+        <Button
+            android:id="@+id/circle_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/process_reset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/chargeProgressView" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="205dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
