@@ -2,7 +2,7 @@
 
 > ProgressBarPro集成了四种ProgressView，希望能满足您绝大部分ProgressView相关的需求😄
 
-1. #### HorizontalProgressView
+1. #### HorizontalProgressView（inspired from [NumberProgressBar](https://github.com/daimajia/NumberProgressBar)）
 
    * ##### 示图
 
