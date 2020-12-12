@@ -123,7 +123,7 @@
      | progressReachedColor   | color     | #FBEEDC、#6AE382 | 进度条后景颜色         |
      | progressValueTextColor | color     | #FBEEDC          | 提示内容和值的字体大小 |
 
-     > 至于为什么progressReachedColor默认值有两个，当电量低于20%时为#FBEEDC，高于20%以后则为#6AE382。
+     > 至于为什么progressReachedColor默认值有两个，当电量低于20%时为#FBEEDC，高于20%以后则为#6AE382，而且你初始化时只能够自定义progressReachedColor大于20%时的颜色。
 
    * ##### 布局示例
 
