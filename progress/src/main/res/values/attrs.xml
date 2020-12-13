@@ -19,6 +19,7 @@
         <attr name="progressTextSize" format="dimension"/>
         <attr name="progressTextColor" format="color"/>
         <attr name="progressStrokeWidth" />
+        <attr name="progressCornerRadius" format="float"/>
 
         <attr name="progressTextOffset" format="dimension"/>
     </declare-styleable>

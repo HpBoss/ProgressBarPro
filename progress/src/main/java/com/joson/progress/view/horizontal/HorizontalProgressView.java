@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -16,6 +17,8 @@ import androidx.annotation.Nullable;
 
 import com.joson.progress.R;
 import com.joson.progress.utils.MiscUtil;
+
+import java.util.Arrays;
 
 /**
  * @Auther: hepiao
@@ -39,6 +42,7 @@ public class HorizontalProgressView extends View {
     private float mMaxDrawTextWidth;
     private long mAnimTime;
     private Context mContext;
+    private float mCornerRadius;
 
     private Paint mTextPaint;
     private float mDrawTextStart;
@@ -46,6 +50,8 @@ public class HorizontalProgressView extends View {
     private Paint mUnReachedBarPaint;
     private RectF mReachedRectF;
     private RectF mUnReachedRectF;
+    private RectF mUnReachedAllRectF;
+    private Path path;
 
     private String mCurrentDrawText;
     private final float default_reached_bar_height;
@@ -69,6 +75,7 @@ public class HorizontalProgressView extends View {
     private static final String INSTANCE_MAX = "max";
     private static final String INSTANCE_PROGRESS = "progress";
     private static final String INSTANCE_SUFFIX = "suffix";
+    private RectF mParentRectF;
 
     public HorizontalProgressView(Context context) {
         this(context, null);
@@ -92,11 +99,13 @@ public class HorizontalProgressView extends View {
         mTextColor = typedArray.getColor(R.styleable.HorizontalProgress_progressTextColor, default_text_color);
         mTextSize = typedArray.getDimension(R.styleable.HorizontalProgress_progressTextSize, default_text_size);
         mReachedBarHeight = typedArray.getDimension(R.styleable.HorizontalProgress_progressBarHeight, default_reached_bar_height);
+        // 考虑到字体的高度影响，这里需要做一些限制，例如：当mReachedBarHeight小于view默认高度时，我们就绘制线性进度条
+        mReachedBarHeight = mReachedBarHeight < MiscUtil.dipToPx(mContext, 20) ? default_reached_bar_height : mReachedBarHeight;
         mOffset = typedArray.getDimension(R.styleable.HorizontalProgress_progressTextOffset, default_progress_text_offset);
         mAnimTime = typedArray.getInt(R.styleable.HorizontalProgress_progressAnimTime, default_animTime);
         mMaxProgress = typedArray.getInt(R.styleable.HorizontalProgress_progressMax, default_max);
+        mCornerRadius = typedArray.getFloat(R.styleable.HorizontalProgress_progressCornerRadius, 0);
 
-        //setPadding(0,(int) MiscUtil.dp2px(context,5f),0,(int) MiscUtil.dp2px(context, 5f));
         setProgress(typedArray.getInt(R.styleable.HorizontalProgress_progressCurrent, default_progress));
         setMax(typedArray.getInt(R.styleable.HorizontalProgress_progressMax, default_max));
         typedArray.recycle();
@@ -117,30 +126,54 @@ public class HorizontalProgressView extends View {
         mTextPaint.setColor(mTextColor);
         mTextPaint.setTextSize(mTextSize);
         mMaxDrawTextWidth = mTextPaint.measureText("100" + mSuffix);
+
+        mUnReachedAllRectF = new RectF();
+        path = new Path();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(MiscUtil.measure(widthMeasureSpec, MiscUtil.dipToPx(mContext, 200)),
-                MiscUtil.measure(heightMeasureSpec, MiscUtil.dipToPx(mContext, 20)));
+                Math.max(MiscUtil.measure(heightMeasureSpec, MiscUtil.dipToPx(mContext, 20)), (int) mReachedBarHeight));
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mUnReachedAllRectF.left = getPaddingLeft();
+        mUnReachedAllRectF.right = w - getPaddingRight() - mMaxDrawTextWidth - mOffset;
+        mUnReachedAllRectF.top = h / 2.0f - mReachedBarHeight / 2.0f;
+        mUnReachedAllRectF.bottom = h / 2.0f + mReachedBarHeight / 2.0f;
+        mParentRectF = new RectF(0,0,w,h);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        // 绘制圆角背景，保证后景圆角进度条不会超出
+        if (mCornerRadius != 0) {
+            path.addRoundRect(mParentRectF, mCornerRadius, mCornerRadius, Path.Direction.CW);
+            canvas.clipPath(path);
+        }
         super.onDraw(canvas);
-        if (mIfDrawText) {
-            calculateDrawRectF();
+        calculateDrawRectF();
+        // 根据mReachedBarHeight是否超出default_reached_bar_height，来决定前景的绘制方案
+        if (mReachedBarHeight <= default_reached_bar_height && mDrawUnreachedBar) {
+            canvas.drawRect(mUnReachedRectF, mUnReachedBarPaint);
         } else {
-            calculateDrawRectFWithoutProgressText();
+            if (mCornerRadius != 0) {
+                canvas.drawRoundRect(mUnReachedAllRectF, mCornerRadius, mCornerRadius, mUnReachedBarPaint);
+            } else {
+                canvas.drawRect(mUnReachedAllRectF, mUnReachedBarPaint);
+            }
         }
 
         if (mDrawReachedBar) {
-            canvas.drawRect(mReachedRectF, mReachedBarPaint);
-        }
-
-        if (mDrawUnreachedBar) {
-            canvas.drawRect(mUnReachedRectF, mUnReachedBarPaint);
+            if (mCornerRadius != 0) {
+                canvas.drawRoundRect(mReachedRectF, mCornerRadius, mCornerRadius, mReachedBarPaint);
+            } else {
+                canvas.drawRect(mReachedRectF, mReachedBarPaint);
+            }
         }
 
         if (mIfDrawText) {
@@ -164,8 +197,8 @@ public class HorizontalProgressView extends View {
             mReachedRectF.left = getPaddingLeft();
             mReachedRectF.top = getHeight() / 2.0f - mReachedBarHeight / 2.0f;
             mReachedRectF.right = (getWidth() - getPaddingLeft() - getPaddingRight() -
-                    mDrawTextWidth) / (getMax() * 1.0f) * getProgress() - mOffset + getPaddingLeft();
-            mReachedRectF.bottom = getHeight() / 2.0f + mReachedBarHeight / 2.0f;
+                    mMaxDrawTextWidth) / (getMax() * 1.0f) * getProgress() - mOffset + getPaddingLeft();
+            mReachedRectF.bottom = mReachedRectF.top + mReachedBarHeight;
             mDrawTextStart = (mReachedRectF.right + mOffset);
         }
 
@@ -174,37 +207,27 @@ public class HorizontalProgressView extends View {
             mReachedRectF.right = mDrawTextStart - mOffset;
         }
 
-        // 当mReachedBarHeight用户没有设置大小，那么会使用默认大小，并且百分比下面没有unReachedBar；
-        // 当mReachedBarHeight值小于mDrawTextHeight时，unReachedBar同样会位于百分比下方；
-        float unreachedBarStart;
-        if (mReachedBarHeight <= default_reached_bar_height || mDrawTextHeight > mReachedBarHeight) {
-            unreachedBarStart = mDrawTextStart + mDrawTextWidth + mOffset;
-        } else {
-            unreachedBarStart = mReachedRectF.right;
+        // 绘制线性进度条的前景，保证text下方没有后景，而在条形进度条中不需要这样的处理
+        if (mReachedBarHeight <= default_reached_bar_height) {
+            // 当mReachedBarHeight用户没有设置大小，那么会使用默认大小，并且百分比下面没有unReachedBar；
+            // 当mReachedBarHeight值小于mDrawTextHeight时，unReachedBar同样会位于百分比下方；
+            float unreachedBarStart;
+            if (mReachedBarHeight <= default_reached_bar_height || mDrawTextHeight > mReachedBarHeight) {
+                unreachedBarStart = mDrawTextStart + mDrawTextWidth + mOffset;
+            } else {
+                unreachedBarStart = mReachedRectF.right;
+            }
+
+            if (unreachedBarStart >= getWidth() - getPaddingRight() - mMaxDrawTextWidth) {
+                mDrawUnreachedBar = false;
+            } else {
+                mDrawUnreachedBar = true;
+                mUnReachedRectF.left = unreachedBarStart;
+                mUnReachedRectF.right = getWidth() - getPaddingRight() - mMaxDrawTextWidth - mOffset;
+                mUnReachedRectF.top = getHeight() / 2.0f - mReachedBarHeight / 2.0f;
+                mUnReachedRectF.bottom = getHeight() / 2.0f + mReachedBarHeight / 2.0f;
+            }
         }
-
-        if (unreachedBarStart >= getWidth() - getPaddingRight() - mMaxDrawTextWidth) {
-            mDrawUnreachedBar = false;
-        } else {
-            mDrawUnreachedBar = true;
-            mUnReachedRectF.left = unreachedBarStart;
-            mUnReachedRectF.right = getWidth() - getPaddingRight() - mMaxDrawTextWidth - mOffset;
-            mUnReachedRectF.top = getHeight() / 2.0f - mReachedBarHeight / 2.0f;
-            mUnReachedRectF.bottom = getHeight() / 2.0f + mReachedBarHeight / 2.0f;
-        }
-    }
-
-    private void calculateDrawRectFWithoutProgressText() {
-        mReachedRectF.left = getPaddingLeft();
-        mReachedRectF.top = getHeight() / 2.0f - mReachedBarHeight / 2.0f;
-        mReachedRectF.right = (getWidth() - getPaddingLeft() - getPaddingRight()) /
-                (getMax() * 1.0f) * getProgress() + getPaddingLeft();
-        mReachedRectF.bottom = getHeight() / 2.0f + mReachedBarHeight / 2.0f;
-
-        mUnReachedRectF.left = mReachedRectF.right;
-        mUnReachedRectF.right = getWidth() - getPaddingRight();
-        mUnReachedRectF.top = getHeight() / 2.0f - mReachedBarHeight / 2.0f;
-        mUnReachedRectF.bottom = getHeight() / 2.0f + mReachedBarHeight / 2.0f;
     }
 
     @Override

@@ -20,8 +20,11 @@
      | progressTextColor      | color     | \#4291F1 | 百分比字体颜色 |
      | progressTextSize       | dimension | 10sp     | 百分比字体大小 |
      | progressAnimTime       | integer   | 3000     | 进度条动画时间 |
+     | progressCornerRadius   | float     | 0        | 进度条圆角     |
 
-     > 当传入的progressBarHeight值大于默认值时，进度条从线型变为条形
+     > 当传入的progressBarHeight值大于20dp时，进度条从线型变为条形
+     >
+     > 如果未设置圆角progressCornerRadius默认为矩形进度条或者线形
 
    * ##### 布局示例
 
@@ -30,10 +33,11 @@
          android:id="@+id/horizontalProgress"
          android:layout_width="0dp"
          android:layout_height="wrap_content"
-         app:progressBarHeight="15dp"
+         app:progressBarHeight="25dp"
          app:progressCurrent="0"
          app:progressMax="100"
          app:progressBarHeight="20dp"
+         app:progressCornerRadius="25"
          app:progressUnreachedColor="#CCCCCC"
          app:progressReachedColor="#70A800"
          app:progressTextSize="10sp"
