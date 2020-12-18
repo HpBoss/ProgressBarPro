@@ -1,6 +1,11 @@
 ## ProgressBarPro
 
 > ProgressBarPro集成了四种ProgressView，希望能满足您绝大部分ProgressView相关的需求😄
+#### Gradle
+
+```groovy
+implementation 'com.joson.progress:ProgrssBarPro:1.0.1'
+```
 
 1. #### HorizontalProgressView（inspired from [NumberProgressBar](https://github.com/daimajia/NumberProgressBar)）
 
